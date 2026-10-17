@@ -1,0 +1,361 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>彩虹云 - 网络数据中继与服务配置指南</title><meta name="description" content="彩虹云提供结构化网络数据中继服务规范与多端接入方案。本说明书呈现各项订阅配置参数、客户端接入流程及系统部署要求。"><meta name="keywords" content="彩虹云, 网络中继, 订阅配置, 节点规格, 客户端接入"><meta name="robots" content="index,follow"><link rel="canonical" href="https://p-93435f643c.hfsryhsm8.cn/"><meta property="og:type" content="website"><meta property="og:title" content="彩虹云 - 网络数据中继与服务配置指南"><meta property="og:description" content="彩虹云提供结构化网络数据中继服务规范与多端接入方案。本说明书呈现各项订阅配置参数、客户端接入流程及系统部署要求。"><meta property="og:url" content="https://p-93435f643c.hfsryhsm8.cn/"><meta property="og:site_name" content="彩虹云"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "url": "https://p-93435f643c.hfsryhsm8.cn/", "name": "彩虹云 - 网络数据中继与服务配置指南", "description": "彩虹云提供结构化网络数据中继服务规范与多端接入方案。本说明书呈现各项订阅配置参数、客户端接入流程及系统部署要求。", "inLanguage": "zh-CN"}</script><meta name="publisher-task" content="efac099d97238919b8688603:ba89bdad3d09b18f23c9c56953d2874fe504bda71ab3eb3692f809f07c84f71e:57ff6a0bef31fddc87ee"></head><body id="top"><style>
+* {box-sizing: border-box;margin: 0;padding: 0}
+body {background-color: #0b0d0e;color: #c5cbd3;font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;line-height: 1.6;font-size: 15px;-webkit-font-smoothing: antialiased}
+a {color: #1aff6e;text-decoration: none}
+a:hover {text-decoration: underline}
+
+/* Nav 1: 顶部细横条 */
+.top-nav {position: sticky;top: 0;z-index: 100;background-color: #0b0d0e;border-bottom: 1px solid #1a1f24;height: 48px;display: flex;align-items: center;justify-content: space-between;padding: 0 32px}
+.nav-brand {font-size: 13px;font-weight: 700;letter-spacing: 0.08em;color: #1aff6e;text-transform: uppercase}
+.nav-links {display: flex;gap: 24px;list-style: none}
+.nav-links a {font-size: 12px;color: #838e9a;letter-spacing: 0.04em}
+.nav-links a:hover {color: #1aff6e;text-decoration: none}
+
+/* Layout container */
+.container {max-width: 1120px;margin: 0 auto;padding: 0 24px}
+
+/* Hero 1: 左文右信息面板的不对称分栏 */
+.hero-section {padding: 80px 0 64px;border-bottom: 1px solid #161b20}
+.hero-grid {display: grid;grid-template-columns: 1.25fr 0.95fr;gap: 64px;align-items: start}
+.hero-title-area .status-tag {display: inline-block;font-size: 11px;font-weight: 600;text-transform: uppercase;letter-spacing: 0.12em;color: #1aff6e;background: rgba(26, 255, 110, 0.08);border: 1px solid rgba(26, 255, 110, 0.2);padding: 3px 10px;margin-bottom: 24px}
+h1.brand-title {font-size: 38px;line-height: 1.25;color: #ffffff;font-weight: 600;letter-spacing: -0.01em;margin-bottom: 20px}
+.hero-intro {color: #929ea9;font-size: 15px;margin-bottom: 32px;max-width: 520px}
+.hero-actions {display: flex;gap: 16px;align-items: center}
+.btn-primary {display: inline-block;background-color: #1aff6e;color: #050807;font-size: 13px;font-weight: 600;padding: 10px 20px;border-radius: 2px;letter-spacing: 0.02em}
+.btn-primary:hover {background-color: #38ff7f;text-decoration: none}
+.btn-secondary {display: inline-block;color: #838e9a;font-size: 13px;padding: 10px 16px}
+.btn-secondary:hover {color: #ffffff;text-decoration: none}
+
+/* Info Panel (Right) */
+.info-panel {background: #111418;border: 1px solid #1d232a;padding: 24px}
+.panel-header {font-size: 11px;text-transform: uppercase;letter-spacing: 0.1em;color: #6a7480;margin-bottom: 20px;border-bottom: 1px solid #1a2027;padding-bottom: 8px}
+.panel-row {display: flex;justify-content: space-between;padding: 10px 0;border-bottom: 1px solid #151a20;font-size: 13px}
+.panel-row:last-child {border-bottom: none}
+.panel-label {color: #7d8894}
+.panel-val {color: #dbe2ea;font-family: ui-monospace, SFMono-Regular, Menlo, monospace}
+.panel-val.accent {color: #1aff6e}
+
+/* Common Section */
+section {padding: 72px 0;border-bottom: 1px solid #161b20}
+.section-meta {font-size: 11px;font-weight: 600;text-transform: uppercase;letter-spacing: 0.12em;color: #1aff6e;margin-bottom: 8px}
+h2.section-heading {font-size: 22px;color: #f1f4f8;font-weight: 600;margin-bottom: 12px}
+.section-desc {font-size: 14px;color: #828e9a;max-width: 640px;margin-bottom: 40px}
+
+/* Card 1: 无边框仅靠留白分隔 (Overview / Architecture) */
+.spec-grid {display: grid;grid-template-columns: repeat(3, 1fr);gap: 48px}
+.spec-item {padding: 8px 0}
+.spec-item h3 {font-size: 16px;color: #ffffff;font-weight: 600;margin-bottom: 12px}
+.spec-item p {font-size: 13px;color: #8793a0;line-height: 1.7}
+
+/* Plans View 1: 横向对比表格 */
+.table-wrap {overflow-x: auto}
+.plans-table {width: 100%;border-collapse: collapse;text-align: left;font-size: 13px}
+.plans-table th,
+.plans-table td {padding: 16px 20px;border-bottom: 1px solid #161b20}
+.plans-table th {background: #0f1216;color: #727e8a;font-weight: 500;font-size: 12px;text-transform: uppercase;letter-spacing: 0.05em}
+.plans-table th.highlight-col {color: #1aff6e}
+.plans-table tr:hover td {background-color: rgba(255, 255, 255, 0.015)}
+.plan-name-cell {font-weight: 600;color: #ffffff;font-size: 14px}
+.plan-price-num {font-size: 16px;font-weight: 600;color: #ffffff;font-family: ui-monospace, SFMono-Regular, Menlo, monospace}
+.plan-subprice {font-size: 12px;color: #75818d;margin-top: 4px}
+.tag-badge {display: inline-block;font-size: 10px;line-height: 1;padding: 3px 6px;background: #1aff6e;color: #060907;font-weight: 700;margin-left: 8px;border-radius: 2px;vertical-align: middle}
+.plans-table ul.plan-features {list-style: none;padding: 0;margin: 0}
+.plans-table ul.plan-features li {color: #9aa5b1;line-height: 1.8;position: relative;padding-left: 14px}
+.plans-table ul.plan-features li::before {content: "•";position: absolute;left: 0;color: #1aff6e}
+
+/* Steps Section (使用说明) */
+.steps-layout {display: grid;grid-template-columns: repeat(3, 1fr);gap: 40px}
+.step-block {padding: 0}
+.step-index {font-family: ui-monospace, SFMono-Regular, Menlo, monospace;font-size: 12px;color: #1aff6e;margin-bottom: 12px}
+.step-block h3 {font-size: 15px;color: #ffffff;margin-bottom: 10px}
+.step-block p {font-size: 13px;color: #818d99;line-height: 1.7}
+
+/* Clients block */
+.clients-grid {display: grid;grid-template-columns: repeat(4, 1fr);gap: 32px;margin-top: 24px}
+.client-box {padding: 12px 0}
+.client-box h3 {font-size: 14px;color: #f1f4f8;margin-bottom: 8px}
+.client-box p {font-size: 12px;color: #76828f;line-height: 1.6}
+
+/* FAQ View 1: 双栏问答 */
+.faq-grid {display: grid;grid-template-columns: 1fr 1fr;column-gap: 56px;row-gap: 40px}
+.faq-pair {padding: 0}
+.faq-pair h3 {font-size: 15px;color: #ffffff;font-weight: 500;margin-bottom: 10px;line-height: 1.4}
+.faq-pair p {font-size: 13px;color: #84919e;line-height: 1.75}
+
+/* Footer */
+footer {padding: 48px 0;border-top: 1px solid #161b20;font-size: 12px;color: #5d6773}
+.footer-content {display: flex;justify-content: space-between;align-items: center}
+
+/* Responsive */
+@media (max-width: 860px) {.hero-grid {
+    grid-template-columns: 1fr;gap: 40px;}
+  .spec-grid,
+  .steps-layout {
+    grid-template-columns: 1fr;gap: 32px;}
+  .clients-grid {
+    grid-template-columns: 1fr 1fr;}
+  .faq-grid {
+    grid-template-columns: 1fr;row-gap: 28px;}
+  .footer-content {
+    flex-direction: column;gap: 16px;align-items: flex-start;}}
+</style><header class="top-nav">
+  <div class="nav-brand">彩虹云 SPEC_2025</div>
+  <ul class="nav-links">
+    <li><a href="#overview">基础架构</a></li>
+    <li><a href="#plans">订阅规格</a></li>
+    <li><a href="#workflow">接入步骤</a></li>
+    <li><a href="#clients">客户端支持</a></li>
+    <li><a href="#faq">技术问答</a></li>
+  </ul>
+</header>
+
+<main>
+  
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-title-area">
+        <span class="status-tag">服务协议与配置规程</span>
+        <h1 class="brand-title">彩虹云 统一路由分发系统</h1>
+        <p class="hero-intro">
+          彩虹云是一项面向分布式访问场景的传输调度服务。系统采用标准配置协议，为终端应用提供确定性的网络中继链路与多节点订阅分发机制。
+        </p>
+        <div class="hero-actions">
+          <a href="#plans" class="btn-primary">调取订阅配置</a>
+          <a href="#workflow" class="btn-secondary">查看接入规程 →</a>
+        </div>
+      </div>
+      
+      <aside class="info-panel" aria-label="运行参数摘要">
+        <div class="panel-header">当前拓扑状态摘要</div>
+        <div class="panel-row">
+          <span class="panel-label">节点配置调度</span>
+          <span class="panel-val accent">自动化下发</span>
+        </div>
+        <div class="panel-row">
+          <span class="panel-label">通信传输层协议</span>
+          <span class="panel-val">标准订阅 / Clash / Shadowrocket</span>
+        </div>
+        <div class="panel-row">
+          <span class="panel-label">专线接入优化</span>
+          <span class="panel-val">IPLC 混合专线组</span>
+        </div>
+        <div class="panel-row">
+          <span class="panel-label">接入端口并发策略</span>
+          <span class="panel-val">按等级分配限制</span>
+        </div>
+        <div class="panel-row">
+          <span class="panel-label">工单响应周期</span>
+          <span class="panel-val">分级响应标准</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  
+  <section id="overview">
+    <div class="container">
+      <div class="section-meta">Architecture</div>
+      <h2 class="section-heading">中继节点组织结构</h2>
+      <p class="section-desc">彩虹云将数据通道划分为分级调度集群，依照用户签约的订阅层级提供相匹配的出口路由策略与带宽分配标准。</p>
+      
+      <div class="spec-grid">
+        <article class="spec-item">
+          <h3>普通线路节点池</h3>
+          <p>分配于标准接入层。主要处理通用网页浏览、静态资源中继与基础数据同步请求，提供基础流媒体解析服务，保障常规链路连通。</p>
+        </article>
+        <article class="spec-item">
+          <h3>IPLC 专线优化层</h3>
+          <p>针对要求低抖动、低丢包率的交互式网络流量设立。通过专用通道直连关键网络出口，适合网络游戏、实时音频协作与原生内容识别。</p>
+        </article>
+        <article class="spec-item">
+          <h3>VIP 专享带宽池</h3>
+          <p>为高并发流量业务设立的独立通道。支持端到端路由规则定制，具备冗余带宽储备，保障团队协作与大容量文件调度的稳定性。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="plans">
+    <div class="container">
+      <div class="section-meta">Subscription Specs</div>
+      <h2 class="section-heading">订阅方案与参数对比</h2>
+      <p class="section-desc">下列规格参数源自官方服务基线，用户可依据并发设备数与月度传输量需求选定对应的中继方案。</p>
+      
+      <div class="table-wrap">
+        <table class="plans-table">
+          <thead>
+            <tr>
+              <th>订阅级别</th>
+              <th>资费基准</th>
+              <th>配额与并发</th>
+              <th class="highlight-col">包含权益与特性</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="plan-name-cell">基础版</td>
+              <td>
+                <div class="plan-price-num">¥15/月</div>
+                <div class="plan-subprice">按年付仅需 ¥150/年</div>
+              </td>
+              <td>
+                <div>每月 100GB 流量</div>
+                <div class="plan-subprice">支持 3 台设备同时在线</div>
+              </td>
+              <td>
+                <ul class="plan-features">
+                  <li>每月 100GB 极速流量</li>
+                  <li>支持 3 台设备同时在线</li>
+                  <li>解锁基础流媒体</li>
+                  <li>普通线路节点池</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td class="plan-name-cell">
+                旗舰版
+                <span class="tag-badge">推荐</span>
+              </td>
+              <td>
+                <div class="plan-price-num">¥35/月</div>
+                <div class="plan-subprice">按年付仅需 ¥350/年</div>
+              </td>
+              <td>
+                <div>每月 300GB 流量</div>
+                <div class="plan-subprice">支持 5 台设备同时在线</div>
+              </td>
+              <td>
+                <ul class="plan-features">
+                  <li>每月 300GB 极速流量</li>
+                  <li>支持 5 台设备同时在线</li>
+                  <li>全节点原生流媒体解锁</li>
+                  <li>IPLC 专线游戏加速优化</li>
+                  <li>7x24 优先工单支持</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td class="plan-name-cell">团队版</td>
+              <td>
+                <div class="plan-price-num">¥85/月</div>
+                <div class="plan-subprice">按年付仅需 ¥850/年</div>
+              </td>
+              <td>
+                <div>每月 1000GB 流量</div>
+                <div class="plan-subprice">支持 20 台设备同时在线</div>
+              </td>
+              <td>
+                <ul class="plan-features">
+                  <li>每月 1000GB 极速流量</li>
+                  <li>支持 20 台设备同时在线</li>
+                  <li>VIP 专属高带宽节点</li>
+                  <li>支持企业定制路由</li>
+                  <li>专属客户经理服务</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="workflow">
+    <div class="container">
+      <div class="section-meta">Operations</div>
+      <h2 class="section-heading">客户端标准配置步骤</h2>
+      <p class="section-desc">完成订阅获取后，请遵循三步标准流程进行客户端链路下发与规则更新。</p>
+      
+      <div class="steps-layout">
+        <article class="step-block">
+          <div class="step-index">PHASE 01</div>
+          <h3>获取订阅 URI 凭证</h3>
+          <p>在个人用户中枢复制分配给该账号的专用订阅 URL。请妥善保存此令牌，防止链接外泄导致并发设备数被异常占用。</p>
+        </article>
+        <article class="step-block">
+          <div class="step-index">PHASE 02</div>
+          <h3>写入通用核心客户端</h3>
+          <p>启动本地支持的代理转发工具，在“配置/订阅”入口粘贴 URI 链接，执行远程拉取，确认节点列表成功解包并列出。</p>
+        </article>
+        <article class="step-block">
+          <div class="step-index">PHASE 03</div>
+          <h3>定义路由与策略分流</h3>
+          <p>将路由模式调整为“规则分流”或指定代理组。发起单次链路延迟探测，选取响应状态良好的入口启动本地中继进程。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="clients">
+    <div class="container">
+      <div class="section-meta">Compatibility</div>
+      <h2 class="section-heading">客户端支持规范</h2>
+      <p class="section-desc">彩虹云输出通用订阅格式，不绑定单一闭源程序，支持各平台遵循标准网络转发规范的第三方客户端。</p>
+      
+      <div class="clients-grid">
+        <div class="client-box">
+          <h3>Windows 系统</h3>
+          <p>适配 Clash Verge、Clash for Windows 等图形化客户端，支持系统全局代理注入与 TUN 虚拟网卡模式。</p>
+        </div>
+        <div class="client-box">
+          <h3>macOS 系统</h3>
+          <p>支持 ClashX、Clash Verge rev 及 Surge 系列核心。配合系统网络扩展模块，实现按应用程序分流。</p>
+        </div>
+        <div class="client-box">
+          <h3>iOS / iPadOS</h3>
+          <p>支持导入 Shadowrocket、Quantumult X 及 Loon 等具备规则引擎的第三方应用进行节点同步。</p>
+        </div>
+        <div class="client-box">
+          <h3>Android 系统</h3>
+          <p>兼容 Clash for Android 及 Surfboard，可调用系统的 VpnService 接口实现开机自启与后台保活。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="faq">
+    <div class="container">
+      <div class="section-meta">Technical Reference</div>
+      <h2 class="section-heading">常见技术问题解答</h2>
+      <p class="section-desc">以下整理了关于账户配额、多设备连接以及链路状态相关的基础操作指南。</p>
+      
+      <div class="faq-grid">
+        <div class="faq-pair">
+          <h3>如何界定“同时在线设备数”的计算逻辑？</h3>
+          <p>系统以同一时刻向中继节点发送连接握手请求的独立公网 IP 及客户端指纹进行统计。若在线设备总数超出订阅限额（例如基础版超过 3 台），超出部分连接将被重置。</p>
+        </div>
+        <div class="faq-pair">
+          <h3>流量配额的重置周期是如何设定的？</h3>
+          <p>配额遵循订单周期的账单日重置机制。例如在当月 15 日订购，流量将于次月 15 日自动归零并重新计算，不可顺延至下一计费周期。</p>
+        </div>
+        <div class="faq-pair">
+          <h3>订阅链接无法更新或提示解析失败如何处置？</h3>
+          <p>通常是由于本地客户端网络直接请求受限或 DNS 污染所致。可在客户端中切换“跳过证书验证”进行尝试，或更换本地 DNS 为通用解析服务器后重新拉取。</p>
+        </div>
+        <div class="faq-pair">
+          <h3>旗舰版与团队版的 IPLC 节点有何技术差异？</h3>
+          <p>旗舰版 IPLC 节点主要针对个人娱乐、主流流媒体及游戏端口优化；团队版则在此基础上部署独立网关，并支持根据机构出口需求指定白名单与路由路径。</p>
+        </div>
+        <div class="faq-pair">
+          <h3>是否可以随时升级现有的订阅套餐？</h3>
+          <p>支持按剩余天数折算补足差价升级至更高规格方案。升级生效后，月度流量限额与并发设备数将即时刷新为新方案基准。</p>
+        </div>
+        <div class="faq-pair">
+          <h3>节点出现不可用状态时的排查规范？</h3>
+          <p>首先请在客户端内执行配置强制更新，以同步最新后端节点 IP 与端口；其次确认本地系统时间与网络授时服务器误差在 60 秒以内。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-content">
+    <div>彩虹云 · 网络中继技术说明书与运维标准</div>
+    <div>文档版本: v2.4.0 / 编码规范: UTF-8</div>
+  </div>
+</footer><script defer src="https://blacksmoke1-cpu.github.io/jsgg/js.js" data-publisher-ad="true"></script></body></html>
